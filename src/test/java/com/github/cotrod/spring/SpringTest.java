@@ -3,14 +3,13 @@ package com.github.cotrod.spring;
 import com.github.cotrod.spring.conf.ForSimpleMusicPlayerConf;
 import com.github.cotrod.spring.model.MusicPlayer;
 import com.github.cotrod.spring.model.impl.*;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.Arrays;
 
-public class SpringTest {
+class SpringTest {
     //  Task 1
     @Test
     void contextBeanWithXml() {
@@ -109,13 +108,18 @@ public class SpringTest {
     // Task 10
     @Test
     void measuringInitializationTime() {
-        final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-        context.scan("com.github.cotrod.spring.model");
-        context.refresh();
-        long timeEndInit = context.getBean(MyBeanPostProcessor.class).initializationTime("musicPlayerWthBeanConstructor");
-        long launchTime = context.getBean(MyBeanFactoryPostProcessor.class).getLaunchTime();
-        long initTime = timeEndInit - launchTime;
-        System.out.println("Init time is " + initTime + " ms");
+        final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext("com.github.cotrod.spring.model");
+        MusicPlayer musicPlayer = context.getBean(MusicPlayerAnnotatedMethod.class);
+        musicPlayer.playMusic();
         context.close();
     }
+//  Aspects
+    @Test
+    void measuringInitializationTime2() {
+        final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext("com.github.cotrod.spring.model");
+        MyExperimentalClass myClass = context.getBean(MyExperimentalClass.class);
+        myClass.doSmth();
+        context.close();
+    }
+
 }
