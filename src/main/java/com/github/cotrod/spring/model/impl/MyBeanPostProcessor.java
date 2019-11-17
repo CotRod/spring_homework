@@ -22,10 +22,11 @@ public class MyBeanPostProcessor implements BeanPostProcessor {
             if (method.isAnnotationPresent(MyAnnotation.class)) {
                 if (methods == null) {
                     methods = new ArrayList<>();
-
+                    methods.add(method);
+                    annotatedMethods.put(beanName, methods);
+                } else {
+                    methods.add(method);
                 }
-                methods.add(method);
-                annotatedMethods.put(beanName, methods);
             }
         }
         return bean;
@@ -34,7 +35,7 @@ public class MyBeanPostProcessor implements BeanPostProcessor {
     @Override
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
         List<Method> methods = annotatedMethods.get(beanName);
-        if (methods != null){
+        if (methods != null) {
             ProxyFactory proxyFactory = new ProxyFactory();
             proxyFactory.addAdvice(new MyProxy());
             proxyFactory.setTarget(bean);
