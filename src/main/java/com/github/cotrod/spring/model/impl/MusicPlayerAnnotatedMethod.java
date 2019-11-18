@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 public class MusicPlayerAnnotatedMethod implements MusicPlayer {
 
     @MyAnnotation
-//    @MyAnnotationSecond
+    @MyAnnotationSecond
     @Override
     public void playMusic() {
         System.out.println("The Strumbellas - Spirits");

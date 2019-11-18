@@ -109,7 +109,7 @@ class SpringTest {
     @Test
     void measuringInitializationTime() {
         final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext("com.github.cotrod.spring.model");
-        MusicPlayer musicPlayer = context.getBean(MusicPlayerAnnotatedMethod.class);
+        MusicPlayer musicPlayer = context.getBean("musicPlayerAnnotatedMethod", MusicPlayer.class);
         musicPlayer.playMusic();
         context.close();
     }
