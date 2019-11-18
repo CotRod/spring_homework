@@ -119,6 +119,8 @@ class SpringTest {
         final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext("com.github.cotrod.spring.model");
         MyExperimentalClass myClass = context.getBean(MyExperimentalClass.class);
         myClass.doSmth();
+        myClass.doSmt3();
+        myClass.doSomth2();
         context.close();
     }
 
